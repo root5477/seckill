@@ -47,7 +47,7 @@ func main()  {
 		log.Errorf("LoadSecInfoConf from etcd failed, err is:%v", err)
 		panic(err)
 	}
-	log.Debugf("LoadSecInfoConf from redis success!")
+	log.Debugf("LoadSecInfoConf from etcd success!")
 	//init etcd watcher
 	dao.InitSecProductWatcher()
 

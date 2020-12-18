@@ -15,6 +15,7 @@ var RedisPoolProxy2Layer *redis.Pool
 var CliEtcd *clientv3.Client
 
 var SecInfosMap map[int] *model.SecInfo
+var RespChanMap map[string] chan *model.SecResponse
 
 var RWLockerOfSecInfo sync.RWMutex
 var RWBlackIpLocker sync.RWMutex
@@ -27,6 +28,7 @@ var SecReqChan chan *model.SecRequestWithCookie
 func init()  {
 	SecInfosMap = make(map[int] *model.SecInfo, 1024)
 	SecReqChan = make(chan *model.SecRequestWithCookie, KillConf.Server.SecReqChanSize)
+	RespChanMap = make(map[string] chan *model.SecResponse)
 }
 
 func InitRedis() (err error) {

@@ -88,6 +88,7 @@ func SecKillHandle(c *gin.Context)  {
 	}
 	cookie.UserCookieAuth = userAuthSign
 	cookie.UserId = userId
+	req.CloseNotify = c.Writer.CloseNotify()
 	data, code, err := service.SecKill(req, cookie)
 	if err != nil {
 		resp.Code = code

@@ -28,22 +28,24 @@ type Db struct {
 
 //配置redis，如：ip黑名单/id黑名单
 type Redis struct {
-	Addr        string `json:"addr"`
-	Pwd         string `json:"pwd"`
-	MaxIdle     int    `json:"max_idle"`
-	MaxActive   int    `json:"max_active"`
-	IdleTimeout int    `json:"idle_timeout"`
-	DbOption    int    `json:"db_option"`
+	Addr                 string `json:"addr"`
+	Pwd                  string `json:"pwd"`
+	MaxIdle              int    `json:"max_idle"`
+	MaxActive            int    `json:"max_active"`
+	IdleTimeout          int    `json:"idle_timeout"`
+	DbOption             int    `json:"db_option"`
+	Layer2ProxyQueueName string `json:"layer_2_proxy_queue_name"`
 }
 
 //接入层redis -> 业务逻辑
 type RedisProxy2layer struct {
-	Addr        string `json:"addr"`
-	Pwd         string `json:"pwd"`
-	MaxIdle     int    `json:"max_idle"`
-	MaxActive   int    `json:"max_active"`
-	IdleTimeout int    `json:"idle_timeout"`
-	DbOption    int    `json:"db_option"`
+	Addr                 string `json:"addr"`
+	Pwd                  string `json:"pwd"`
+	MaxIdle              int    `json:"max_idle"`
+	MaxActive            int    `json:"max_active"`
+	IdleTimeout          int    `json:"idle_timeout"`
+	DbOption             int    `json:"db_option"`
+	Proxy2LayerQueueName string `json:"proxy_2_layer_queue_name"`
 }
 
 type Etcd struct {
@@ -68,16 +70,16 @@ type Limit struct {
 }
 
 type Config struct {
-	Server           `json:"server"`
-	Db               `json:"db"`
-	Redis            `json:"redis"`
-	RedisProxy2layer `json:"redis_proxy2layer"`
-	Etcd             `json:"etcd"`
-	Log              `json:"log"`
-	SecretKey        `json:"secret_key"`
-	Limit            `json:"limit"`
-	IpBlackMap       map[string]bool `json:"ip_black_map"`
-	IdBlackMap       map[string]bool `json:"id_black_map"`
+	Server                     `json:"server"`
+	Db                         `json:"db"`
+	Redis                      `json:"redis"`
+	RedisProxy2layer           `json:"redis_proxy2layer"`
+	Etcd                       `json:"etcd"`
+	Log                        `json:"log"`
+	SecretKey                  `json:"secret_key"`
+	Limit                      `json:"limit"`
+	IpBlackMap map[string]bool `json:"ip_black_map"`
+	IdBlackMap map[string]bool `json:"id_black_map"`
 }
 
 func EnvInit(confPath string) *Config {

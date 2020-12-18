@@ -84,7 +84,7 @@ func TestSetSecInfo(t *testing.T) {
 		EndTime:time.Now().Unix() + 60 * 60 * 24,
 		Status:0,
 		Total:10000,
-		Left:9999,
+		Left:10000,
 	}
 	var products []*model.SecInfo
 
@@ -101,6 +101,60 @@ func TestSetSecInfo(t *testing.T) {
 	if err != nil {
 		panic(err)
 	}
+}
+
+func InitEtcd222() (CliEtcd *clientv3.Client, err error) {
+
+	CliEtcd, err = clientv3.New(clientv3.Config{
+		Endpoints:[]string {"10.226.133.69:2379"},
+		DialTimeout: time.Duration(KillConf.Etcd.TimeOut) * time.Second,
+	})
+	if err != nil {
+		fmt.Printf("connect to etcd failed, err is:%v\n", err)
+		return nil, err
+	}
+	fmt.Println("connect to etcd success!")
+	return
+}
+
+
+func TestSetSecInfo2(t *testing.T) {
+
+	CliEtcd2,err := InitEtcd222()
+	if err != nil {
+		panic(err)
+	}
+	product1 := &model.SecInfo{
+		ProductId:1,
+		StartTime:time.Now().Unix(),
+		EndTime:time.Now().Unix() + 60 * 60 * 24,
+		Status:0,
+		Total:10000,
+		Left:10000,
+	}
+	product2 := &model.SecInfo {
+		ProductId:2,
+		StartTime:time.Now().Unix(),
+		EndTime:time.Now().Unix() + 60 * 60 * 24,
+		Status:0,
+		Total:10000,
+		Left:10000,
+	}
+	var products []*model.SecInfo
+
+	products = append(products, product1, product2)
+	bytes, err := json.Marshal(&products)
+	if err != nil {
+		panic(err)
+	}
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second * 5)
+	fmt.Println( string(bytes))
+	_, err = CliEtcd2.Put(ctx, "sec_product_info", string(bytes))
+	defer cancel()
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println("hahahahahhahahah")
 }
 
 

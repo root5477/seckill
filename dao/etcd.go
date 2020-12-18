@@ -10,15 +10,14 @@ import (
 	"secProxy/model"
 
 	"time"
-
 )
 
 //加载秒杀商品信息
 func LoadSecInfoConf() (err error) {
 	err = InitEtcd()
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second * 5)
-	resp, err := CliEtcd.Get(ctx, "sec_info")
-	cancel()
+	resp, err := CliEtcd.Get(ctx, KillConf.Etcd.SecKey)
+	defer cancel()
 	if err != nil {
 		return err
 	}

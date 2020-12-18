@@ -1,16 +1,18 @@
-[DEBUG] 2020-12-10 00:55:18.848 log.go:206 log.Init: Debug log print begin
-[INFO] 2020-12-10 00:55:18.848 log.go:207 log.Init: Info log print begin
-[WARN] 2020-12-10 00:55:18.848 log.go:209 log.Init: Warn log print begin
-[INFO] 2020-12-10 00:55:18.848 initLog.go:15 log.InitLog: Log init success
-[DEBUG] 2020-12-10 00:55:18.848 main.go:20 main.main: InitLog success! 
-[DEBUG] 2020-12-10 00:55:18.848 main.go:22 main.main: KillConf:[{{127.0.0.1 8090} {127.0.0.1 3306 root hanitt5477 codecov} {127.0.0.1:6379  16 0 300 3} {127.0.0.1:6379  16 0 300 2} {127.0.0.1:2379  5 sec_info} {debug} {zhe-ge-mi-yao-hen-zhuan-ye} {5 1 [localhost baidu.com]} map[] map[]}]
-[DEBUG] 2020-12-10 00:55:18.849 main.go:30 main.main: InitRedis success!
-[DEBUG] 2020-12-10 00:55:18.852 main.go:42 main.main: LoadSecInfoConf from redis success!
-[DEBUG] 2020-12-13 21:04:30.504 log.go:206 log.Init: Debug log print begin
-[INFO] 2020-12-13 21:04:30.504 log.go:207 log.Init: Info log print begin
-[WARN] 2020-12-13 21:04:30.504 log.go:209 log.Init: Warn log print begin
-[INFO] 2020-12-13 21:04:30.504 initLog.go:15 log.InitLog: Log init success
-[DEBUG] 2020-12-13 21:04:30.504 main.go:21 main.main: InitLog success! 
-[DEBUG] 2020-12-13 21:04:30.504 main.go:23 main.main: KillConf:[{{127.0.0.1 8090 16 16 100000} {127.0.0.1 3306 root hanitt5477 codecov} {127.0.0.1:6379  16 0 300 3} {127.0.0.1:6379  16 0 300 2} {127.0.0.1:2379  5 sec_info} {debug} {zhe-ge-mi-yao-hen-zhuan-ye} {5 1 [localhost baidu.com]} map[] map[]}]
-[DEBUG] 2020-12-13 21:04:30.508 main.go:36 main.main: InitRedis success!
-[DEBUG] 2020-12-13 21:04:30.519 main.go:52 main.main: LoadSecInfoConf from redis success!
+[DEBUG] 2020-12-18 15:51:22.251 log.go:206 log.Init: Debug log print begin
+[INFO] 2020-12-18 15:51:22.251 log.go:207 log.Init: Info log print begin
+[WARN] 2020-12-18 15:51:22.251 log.go:209 log.Init: Warn log print begin
+[INFO] 2020-12-18 15:51:22.251 initLog.go:15 log.InitLog: Log init success
+[DEBUG] 2020-12-18 15:51:22.251 main.go:21 main.main: InitLog success! 
+[DEBUG] 2020-12-18 15:51:22.251 main.go:23 main.main: KillConf:[{{10.226.133.69 8090 16 16 100000} {10.226.133.69 3306 root hanitt5477 vpcdns} {10.226.133.69:6379 test2redis 16 0 300 3} {10.226.133.69:6379 test2redis 16 0 300 3} {10.226.133.69:2379  5 sec_product_info} {debug} {zhe-ge-mi-yao-hen-zhuan-ye} {5 1 [localhost baidu.com]} map[] map[]}]
+[DEBUG] 2020-12-18 15:51:22.528 main.go:36 main.main: InitRedis success!
+[DEBUG] 2020-12-18 15:51:22.826 main.go:50 main.main: LoadSecInfoConf from etcd success!
+[DEBUG] 2020-12-18 15:52:24.615 etcd.go:70 dao.WatchSecProductInfoKey: get config from etcd, type:PUT, key:[115 101 99 95 112 114 111 100 117 99 116 95 105 110 102 111], value:[91 123 34 80 114 111 100 117 99 116 73 100 34 58 49 44 34 83 116 97 114 116 84 105 109 101 34 58 49 54 48 56 50 55 53 48 51 55 44 34 69 110 100 84 105 109 101 34 58 49 54 48 56 51 54 49 52 51 55 44 34 83 116 97 116 117 115 34 58 48 44 34 84 111 116 97 108 34 58 49 48 48 48 48 44 34 76 101 102 116 34 58 49 48 48 48 48 125 44 123 34 80 114 111 100 117 99 116 73 100 34 58 50 44 34 83 116 97 114 116 84 105 109 101 34 58 49 54 48 56 50 55 53 48 51 55 44 34 69 110 100 84 105 109 101 34 58 49 54 48 56 51 54 49 52 51 55 44 34 83 116 97 116 117 115 34 58 48 44 34 84 111 116 97 108 34 58 50 48 48 48 48 44 34 76 101 102 116 34 58 49 57 57 57 57 125 93]
+[DEBUG] 2020-12-18 15:52:24.615 etcd.go:72 dao.WatchSecProductInfoKey: get config from etcd success, [{1 1608275037 1608361437 0 10000 10000} {2 1608275037 1608361437 0 20000 19999}]
+[DEBUG] 2020-12-18 16:23:42.565 log.go:206 log.Init: Debug log print begin
+[INFO] 2020-12-18 16:23:42.565 log.go:207 log.Init: Info log print begin
+[WARN] 2020-12-18 16:23:42.565 log.go:209 log.Init: Warn log print begin
+[INFO] 2020-12-18 16:23:42.565 initLog.go:15 log.InitLog: Log init success
+[DEBUG] 2020-12-18 16:23:42.582 main.go:21 main.main: InitLog success! 
+[DEBUG] 2020-12-18 16:23:42.582 main.go:23 main.main: KillConf:[{{10.226.133.69 8090 16 16 100000} {10.226.133.69 3306 root hanitt5477 vpcdns} {10.226.133.69:6379 test2redis 4 0 300 3} {10.226.133.69:6379 test2redis 4 0 300 3} {10.226.133.69:2379  5 sec_product_info} {debug} {zhe-ge-mi-yao-hen-zhuan-ye} {5 1 [localhost baidu.com]} map[] map[]}]
+[DEBUG] 2020-12-18 16:23:42.912 main.go:36 main.main: InitRedis success!
+[DEBUG] 2020-12-18 16:23:43.268 main.go:50 main.main: LoadSecInfoConf from etcd success!

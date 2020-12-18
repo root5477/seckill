@@ -113,7 +113,7 @@ func UserCheck(cookie *model.UserCookie, req *model.SecKillReq) (err error) {
 	return
 }
 
-func SecKill(req *model.SecKillReq, cookie *model.UserCookie) (data interface{}, code int, err error) {
+func SecKill(req *model.SecKillReq, cookie *model.UserCookie) (data map[string] interface{}, code int, err error) {
 	conf.RWLockerOfSecInfo.Lock()
 	defer conf.RWLockerOfSecInfo.Unlock()
 
@@ -159,11 +159,38 @@ func SecKill(req *model.SecKillReq, cookie *model.UserCookie) (data interface{},
 	}
 
 	//到这里说明请求合法 && 活动正常进行中, 发送给redis队列处理
-	reqWithCookie := &model.SecRequestWithCookie{
+	reqWithCookie := &model.SecRequestWithCookie {
 		SecKillReq:*req,
 		UserCookie:*cookie,
 	}
+	userKey := fmt.Sprintf("%v-%v", reqWithCookie.UserId, req.Product)
+	conf.RespChanMap[userKey] = make(chan *model.SecResponse, 1)
+
 	conf.SecReqChan <- reqWithCookie
+	ticker := time.NewTicker(time.Second * 10)
+	defer ticker.Stop()
+	select {
+	case <- ticker.C:
+		log.Errorf("req process timeout, req:%v", reqWithCookie)
+		code = ErrPleaseRetry
+		err = fmt.Errorf("timeout, please retry")
+		return
+	case <- reqWithCookie.SecKillReq.CloseNotify:
+		log.Warnf("client already close, req:%v", reqWithCookie)
+		code = ErrClientClosed
+		err = fmt.Errorf("client already closed")
+		return nil, code, err
+	case resp := <- conf.RespChanMap[userKey]:
+		code = resp.Code
+		if code != 2002 {
+			return data, code, GetErrMsg(code)
+		}
+		data["user_id"] = resp.UserId
+		data["product_id"] = resp.ProductId
+		data["token"] = resp.Token
+		data["token_time"] = resp.TokenTime
+		return data, code, nil
+	}
 	return
 }
 
