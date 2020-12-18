@@ -3,14 +3,19 @@ package conf
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/gomodule/redigo/redis"
 	"io/ioutil"
+	"time"
 )
 
 var KillConf *Config
 
 type Server struct {
-	Addr string `json:"addr"`
-	Port int    `json:"port"`
+	Addr                         string `json:"addr"`
+	Port                         int    `json:"port"`
+	WriteProxy2LayerGoroutineNum int    `json:"write_proxy_2_layer_goroutine_num"`
+	ReadLayer2ProxyGoroutineNum  int    `json:"read_layer_2_proxy_goroutine_num"`
+	SecReqChanSize               int    `json:"sec_req_chan_size"`
 }
 
 type Db struct {
@@ -21,7 +26,18 @@ type Db struct {
 	Database string `json:"database"`
 }
 
+//配置redis，如：ip黑名单/id黑名单
 type Redis struct {
+	Addr        string `json:"addr"`
+	Pwd         string `json:"pwd"`
+	MaxIdle     int    `json:"max_idle"`
+	MaxActive   int    `json:"max_active"`
+	IdleTimeout int    `json:"idle_timeout"`
+	DbOption    int    `json:"db_option"`
+}
+
+//接入层redis -> 业务逻辑
+type RedisProxy2layer struct {
 	Addr        string `json:"addr"`
 	Pwd         string `json:"pwd"`
 	MaxIdle     int    `json:"max_idle"`
@@ -52,13 +68,16 @@ type Limit struct {
 }
 
 type Config struct {
-	Server    `json:"server"`
-	Db        `json:"db"`
-	Redis     `json:"redis"`
-	Etcd      `json:"etcd"`
-	Log       `json:"log"`
-	SecretKey `json:"secret_key"`
-	Limit     `json:"limit"`
+	Server           `json:"server"`
+	Db               `json:"db"`
+	Redis            `json:"redis"`
+	RedisProxy2layer `json:"redis_proxy2layer"`
+	Etcd             `json:"etcd"`
+	Log              `json:"log"`
+	SecretKey        `json:"secret_key"`
+	Limit            `json:"limit"`
+	IpBlackMap       map[string]bool `json:"ip_black_map"`
+	IdBlackMap       map[string]bool `json:"id_black_map"`
 }
 
 func EnvInit(confPath string) *Config {
@@ -77,6 +96,62 @@ func EnvInit(confPath string) *Config {
 	return Config
 }
 
+//加载黑名单数据：ip & id
+func LoadBlackList() (err error) {
+	c := RedisPool.Get()
+	defer c.Close()
+	reply, err := redis.Strings(c.Do("hgetall", "id_black_list"))
+	if err != nil {
+		return
+	}
+	for _, v := range reply {
+		KillConf.IdBlackMap[v] = true
+	}
+
+	reply, err = redis.Strings(c.Do("hgetall", "ip_black_list"))
+	if err != nil {
+		return
+	}
+	for _, v := range reply {
+		KillConf.IpBlackMap[v] = true
+	}
+
+	go SyncIdBlackList()
+	go SyncIpBlackList()
+	return
+}
+
+func SyncIpBlackList() {
+	for {
+		conn := RedisPool.Get()
+		defer conn.Close()
+		reply, err := conn.Do("BLPOP", "black_ip_list", time.Second)
+		ip, err := redis.String(reply, err)
+		if err != nil {
+			continue
+		}
+		RWBlackIpLocker.Lock()
+		KillConf.IpBlackMap[ip] = true
+		RWBlackIpLocker.Unlock()
+	}
+}
+
+func SyncIdBlackList() {
+	for {
+		conn := RedisPool.Get()
+		defer conn.Close()
+		reply, err := conn.Do("BLPOP", "black_id_list", time.Second)
+		id, err := redis.String(reply, err)
+		if err != nil {
+			continue
+		}
+		RWBlackIdLocker.Lock()
+		KillConf.IdBlackMap[id] = true
+		RWBlackIdLocker.Unlock()
+	}
+}
+
 func init() {
-	KillConf = EnvInit(`/Users/chenqi/go/src/secProxy/conf/seckill.json`)
+	KillConf = EnvInit(`./conf/seckill.json`)
+
 }

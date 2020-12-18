@@ -33,7 +33,10 @@ func GetSecInfoById(productId int) (item map[string] interface{}, code int, err 
 	item["product_id"] = v.ProductId
 
 	if now - v.StartTime < 0 {
+		startTag = false
+		endTag = false
 		status = "the sec kill is not start"
+		code = ErrActiveNotStart
 	}
 	if now - v.StartTime > 0 {
 		startTag = true
@@ -42,12 +45,14 @@ func GetSecInfoById(productId int) (item map[string] interface{}, code int, err 
 		startTag = false
 		endTag = true
 		status = "the sec kill is already end"
+		code = ErrActiveAlreadyEnd
 	}
 
 	if v.Status == model.ProductStatusForceSaleOut || v.Status == model.ProductStatusSaleOut {
 		startTag = false
 		endTag = true
 		status = "product is sale out"
+		code = ErrActiveSaleOut
 	}
 
 	item["start"] = startTag
@@ -98,6 +103,7 @@ func UserCheck(cookie *model.UserCookie, req *model.SecKillReq) (err error) {
 		return
 	}
 
+
 	authData := fmt.Sprintf("%v-%v", cookie.UserId, conf.KillConf.SecretKey.CookieSecretKey)
 	authSign := fmt.Sprintf("%x", md5.Sum([]byte(authData)))
 	if authSign != cookie.UserCookieAuth {
@@ -110,6 +116,22 @@ func UserCheck(cookie *model.UserCookie, req *model.SecKillReq) (err error) {
 func SecKill(req *model.SecKillReq, cookie *model.UserCookie) (data interface{}, code int, err error) {
 	conf.RWLockerOfSecInfo.Lock()
 	defer conf.RWLockerOfSecInfo.Unlock()
+
+	//black ip&&id check
+	_, ok := conf.KillConf.IpBlackMap[req.ClientAddr]
+	if ok {
+		log.Errorf("req client ip[%v] is black, req:[%v]", req.ClientAddr, *req)
+		code = ErrCheckAuthFaild
+		err = fmt.Errorf("invalid request")
+		return
+	}
+	_, ok = conf.KillConf.IdBlackMap[cookie.UserId]
+	if ok {
+		log.Errorf("req user id is black, cookie:[%v], req:[%v]", *cookie, *req)
+		code = ErrCheckAuthFaild
+		err = fmt.Errorf("invalid request")
+		return
+	}
 
 	err = UserCheck(cookie, req)
 	if err != nil {
@@ -125,5 +147,34 @@ func SecKill(req *model.SecKillReq, cookie *model.UserCookie) (data interface{},
 		return
 	}
 
+	data, code, err =  GetSecInfoById(req.Product)
+	if err != nil {
+		log.Errorf("userId[%v] GetSecInfoById failed, req:[%v]", *cookie, *req)
+		return
+	}
+
+	if code != 0 {
+		log.Warnf("userId[%v] GetSecInfoById failed, req:[%v]", *cookie, *req)
+		return
+	}
+
+	//到这里说明请求合法 && 活动正常进行中, 发送给redis队列处理
+	reqWithCookie := &model.SecRequestWithCookie{
+		SecKillReq:*req,
+		UserCookie:*cookie,
+	}
+	conf.SecReqChan <- reqWithCookie
 	return
 }
+
+func InitRedisProcessFunc()  {
+	for i := 0; i < conf.KillConf.Server.WriteProxy2LayerGoroutineNum; i ++ {
+		go WriteHandle()
+	}
+
+	for i := 0; i < conf.KillConf.Server.ReadLayer2ProxyGoroutineNum; i ++ {
+		go ReadHandle()
+	}
+}
+
+

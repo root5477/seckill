@@ -1,3 +1,0 @@
-[ERROR] 2020-12-09 00:03:15.472 handle.go:87 handle.SecKillHandle: get cookie failed, err1 is:[http: named cookie not present], err2 is:[http: named cookie not present]
-[ERROR] 2020-12-09 00:03:42.638 handle.go:87 handle.SecKillHandle: get cookie failed, err1 is:[http: named cookie not present], err2 is:[http: named cookie not present]
-[ERROR] 2020-12-09 00:03:56.109 handle.go:87 handle.SecKillHandle: get cookie failed, err1 is:[http: named cookie not present], err2 is:[http: named cookie not present]

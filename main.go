@@ -6,6 +6,7 @@ import (
 	"secProxy/dao"
 	"secProxy/handle"
 	"secProxy/log"
+	"secProxy/service"
 )
 
 //遇到因为grpc或clientv3 biuld失败，切换为root，go mod init, go build main.go,
@@ -24,7 +25,21 @@ func main()  {
 		log.Errorf("InitRedis failed, err is:%v", err)
 		panic(err)
 	}
+	err = conf.InitProxy2LayerRedis()
+	if err != nil {
+		log.Errorf("InitProxy2LayerRedis failed, err is:%v", err)
+		panic(err)
+	}
 	log.Debugf("InitRedis success!")
+
+	//load black list (ip&&id)
+	err = conf.LoadBlackList()
+	if err != nil {
+		log.Errorf("LoadBlackList failed, err is:%v", err)
+	}
+
+	//init writeHandle && readHandle
+	service.InitRedisProcessFunc()
 
 	//load sec info
 	err = dao.LoadSecInfoConf()

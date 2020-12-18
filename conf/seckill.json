@@ -1,7 +1,10 @@
 {
   "server":{
     "addr":"127.0.0.1",
-    "port":8090
+    "port":8090,
+    "write_proxy_2_layer_goroutine_num":16,
+    "read_layer_2_proxy_goroutine_num":16,
+    "sec_req_chan_size":100000
   },
   "db":{
     "addr":"127.0.0.1",
@@ -17,6 +20,14 @@
     "max_active":0,
     "idle_timeout":300,
     "db_option":3
+  },
+  "redis_proxy2layer":{
+    "addr":"127.0.0.1:6379",
+    "pwd":"",
+    "max_idle":16,
+    "max_active":0,
+    "idle_timeout":300,
+    "db_option":2
   },
   "etcd": {
     "addr":"127.0.0.1:2379",

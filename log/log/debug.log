@@ -1,38 +1,16 @@
-[DEBUG] 2020-12-09 00:01:46.357 log.go:206 log.Init: Debug log print begin
-[INFO] 2020-12-09 00:01:46.357 log.go:207 log.Init: Info log print begin
-[WARN] 2020-12-09 00:01:46.357 log.go:209 log.Init: Warn log print begin
-[INFO] 2020-12-09 00:01:46.357 initLog.go:15 log.InitLog: Log init success
-[DEBUG] 2020-12-09 00:01:46.358 main.go:20 main.main: InitLog success! 
-[DEBUG] 2020-12-09 00:01:46.358 main.go:22 main.main: KillConf:[{{127.0.0.1 8090} {127.0.0.1 3306 root hanitt5477 codecov} {127.0.0.1:6379  16 0 300 3} {127.0.0.1:2379  5 sec_info} {debug} {zhe-ge-mi-yao-hen-zhuan-ye} {5 [localhost baidu.com]}}]
-[DEBUG] 2020-12-09 00:01:46.358 main.go:30 main.main: InitRedis success!
-[DEBUG] 2020-12-09 00:01:46.360 main.go:37 main.main: LoadSecInfoConf from redis success!
-[DEBUG] 2020-12-09 00:03:11.058 log.go:206 log.Init: Debug log print begin
-[INFO] 2020-12-09 00:03:11.058 log.go:207 log.Init: Info log print begin
-[WARN] 2020-12-09 00:03:11.058 log.go:209 log.Init: Warn log print begin
-[INFO] 2020-12-09 00:03:11.058 initLog.go:15 log.InitLog: Log init success
-[DEBUG] 2020-12-09 00:03:11.058 main.go:20 main.main: InitLog success! 
-[DEBUG] 2020-12-09 00:03:11.059 main.go:22 main.main: KillConf:[{{127.0.0.1 8090} {127.0.0.1 3306 root hanitt5477 codecov} {127.0.0.1:6379  16 0 300 3} {127.0.0.1:2379  5 sec_info} {debug} {zhe-ge-mi-yao-hen-zhuan-ye} {5 [localhost baidu.com]}}]
-[DEBUG] 2020-12-09 00:03:11.059 main.go:30 main.main: InitRedis success!
-[DEBUG] 2020-12-09 00:03:11.062 main.go:37 main.main: LoadSecInfoConf from redis success!
-[DEBUG] 2020-12-09 00:03:15.472 handle.go:72 handle.SecKillHandle: client request:[&{0 ios 123456 123123123123 asdsad 1607443395 127.0.0.1 }]
-[ERROR] 2020-12-09 00:03:15.472 handle.go:87 handle.SecKillHandle: get cookie failed, err1 is:[http: named cookie not present], err2 is:[http: named cookie not present]
-[DEBUG] 2020-12-09 00:03:42.638 handle.go:72 handle.SecKillHandle: client request:[&{0 ios 123456 123123123123 asdsad 1607443422 127.0.0.1 }]
-[ERROR] 2020-12-09 00:03:42.638 handle.go:87 handle.SecKillHandle: get cookie failed, err1 is:[http: named cookie not present], err2 is:[http: named cookie not present]
-[DEBUG] 2020-12-09 00:03:56.108 handle.go:72 handle.SecKillHandle: client request:[&{0 ios 123456 123123123123 asdsad 1607443436 127.0.0.1 }]
-[ERROR] 2020-12-09 00:03:56.109 handle.go:87 handle.SecKillHandle: get cookie failed, err1 is:[http: named cookie not present], err2 is:[http: named cookie not present]
-[DEBUG] 2020-12-09 00:21:51.476 log.go:206 log.Init: Debug log print begin
-[INFO] 2020-12-09 00:21:51.476 log.go:207 log.Init: Info log print begin
-[WARN] 2020-12-09 00:21:51.476 log.go:209 log.Init: Warn log print begin
-[INFO] 2020-12-09 00:21:51.476 initLog.go:15 log.InitLog: Log init success
-[DEBUG] 2020-12-09 00:21:51.476 main.go:20 main.main: InitLog success! 
-[DEBUG] 2020-12-09 00:21:51.476 main.go:22 main.main: KillConf:[{{127.0.0.1 8090} {127.0.0.1 3306 root hanitt5477 codecov} {127.0.0.1:6379  16 0 300 3} {127.0.0.1:2379  5 sec_info} {debug} {zhe-ge-mi-yao-hen-zhuan-ye} {5 10 [localhost baidu.com]}}]
-[DEBUG] 2020-12-09 00:21:51.476 main.go:30 main.main: InitRedis success!
-[DEBUG] 2020-12-09 00:21:51.478 main.go:37 main.main: LoadSecInfoConf from redis success!
-[DEBUG] 2020-12-09 00:38:11.133 log.go:206 log.Init: Debug log print begin
-[INFO] 2020-12-09 00:38:11.133 log.go:207 log.Init: Info log print begin
-[WARN] 2020-12-09 00:38:11.133 log.go:209 log.Init: Warn log print begin
-[INFO] 2020-12-09 00:38:11.133 initLog.go:15 log.InitLog: Log init success
-[DEBUG] 2020-12-09 00:38:11.133 main.go:20 main.main: InitLog success! 
-[DEBUG] 2020-12-09 00:38:11.133 main.go:22 main.main: KillConf:[{{127.0.0.1 8090} {127.0.0.1 3306 root hanitt5477 codecov} {127.0.0.1:6379  16 0 300 3} {127.0.0.1:2379  5 sec_info} {debug} {zhe-ge-mi-yao-hen-zhuan-ye} {5 10 [localhost baidu.com]}}]
-[DEBUG] 2020-12-09 00:38:11.133 main.go:30 main.main: InitRedis success!
-[DEBUG] 2020-12-09 00:38:11.135 main.go:37 main.main: LoadSecInfoConf from redis success!
+[DEBUG] 2020-12-10 00:55:18.848 log.go:206 log.Init: Debug log print begin
+[INFO] 2020-12-10 00:55:18.848 log.go:207 log.Init: Info log print begin
+[WARN] 2020-12-10 00:55:18.848 log.go:209 log.Init: Warn log print begin
+[INFO] 2020-12-10 00:55:18.848 initLog.go:15 log.InitLog: Log init success
+[DEBUG] 2020-12-10 00:55:18.848 main.go:20 main.main: InitLog success! 
+[DEBUG] 2020-12-10 00:55:18.848 main.go:22 main.main: KillConf:[{{127.0.0.1 8090} {127.0.0.1 3306 root hanitt5477 codecov} {127.0.0.1:6379  16 0 300 3} {127.0.0.1:6379  16 0 300 2} {127.0.0.1:2379  5 sec_info} {debug} {zhe-ge-mi-yao-hen-zhuan-ye} {5 1 [localhost baidu.com]} map[] map[]}]
+[DEBUG] 2020-12-10 00:55:18.849 main.go:30 main.main: InitRedis success!
+[DEBUG] 2020-12-10 00:55:18.852 main.go:42 main.main: LoadSecInfoConf from redis success!
+[DEBUG] 2020-12-13 21:04:30.504 log.go:206 log.Init: Debug log print begin
+[INFO] 2020-12-13 21:04:30.504 log.go:207 log.Init: Info log print begin
+[WARN] 2020-12-13 21:04:30.504 log.go:209 log.Init: Warn log print begin
+[INFO] 2020-12-13 21:04:30.504 initLog.go:15 log.InitLog: Log init success
+[DEBUG] 2020-12-13 21:04:30.504 main.go:21 main.main: InitLog success! 
+[DEBUG] 2020-12-13 21:04:30.504 main.go:23 main.main: KillConf:[{{127.0.0.1 8090 16 16 100000} {127.0.0.1 3306 root hanitt5477 codecov} {127.0.0.1:6379  16 0 300 3} {127.0.0.1:6379  16 0 300 2} {127.0.0.1:2379  5 sec_info} {debug} {zhe-ge-mi-yao-hen-zhuan-ye} {5 1 [localhost baidu.com]} map[] map[]}]
+[DEBUG] 2020-12-13 21:04:30.508 main.go:36 main.main: InitRedis success!
+[DEBUG] 2020-12-13 21:04:30.519 main.go:52 main.main: LoadSecInfoConf from redis success!
